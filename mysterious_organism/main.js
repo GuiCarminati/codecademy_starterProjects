@@ -141,7 +141,6 @@ function findClosestStrands(arrayOfpAequor){
             first.assignIfBigger(match, element_i, element_j) || second.assignIfBigger(match, element_i, element_j);            
         }
     }
-
     
     console.log("");
     console.log(`Closest match: sNum ${first.strand1.specimennum} and ${first.strand2.specimennum} (${(100*first.match).toFixed(2)}% match):`);
