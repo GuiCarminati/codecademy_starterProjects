@@ -1,0 +1,63 @@
+School Catalogue
+Let’s put your knowledge of classes to the test by creating a digital school catalog for the New York City Department of Education. The Department of Education wants the catalog to hold quick reference material for each school in the city.
+
+We need to create classes for primary and high schools. Because these classes share properties and methods, each will inherit from a parent School class. Our parent and three child classes have the following properties, getters, setters, and methods:
+
+School
+Properties: name (string), level (one of three strings: 'primary', 'middle', or 'high'), and numberOfStudents (number)
+Getters: all properties have getters
+Setters: the numberOfStudents property has a setter
+Methods: .quickFacts() and .pickSubstituteTeacher() (this is a static method)
+Primary
+Includes everything in the School class, plus one additional property
+Properties: pickupPolicy (string)
+Middle
+Does not include any additional properties or methods
+High
+Includes everything in the School class, plus one additional property
+Properties: sportsTeams (array of strings)
+If you’re looking for a challenge, create the constructor() and getters for the four classes above. Then, use the setter and methods specifications in steps five, six, and seven to finish the project.
+
+If you get stuck during this project or would like to see an experienced developer work through it, click “Get Unstuck“ to see a project walkthrough video.
+
+-----
+
+Instances of PrimarySchool and HighSchool
+14.
+Create a PrimarySchool instance with the following properties:
+
+Name: 'Lorraine Hansbury'
+Number of Students: 514
+Pickup Policy: 'Students must be picked up by a parent, guardian, or a family member over the age of 13.'
+Save the instance to a constant variable named lorraineHansbury.
+
+15.
+Call .quickFacts() on the lorraineHansbury instance.
+
+16.
+The principal of Lorraine Hansbury needs a substitute teacher for the day.
+
+Call .pickSubstituteTeacher() on School, and pass the following array as an argument:
+
+['Jamal Crawford', 'Lou Williams', 'J. R. Smith', 'James Harden', 'Jason Terry', 'Manu Ginobli'];
+
+
+17.
+Create a HighSchool instance with the following properties:
+
+Name: 'Al E. Smith'
+Number of Students: 415
+Sports Teams: ['Baseball', 'Basketball', 'Volleyball', 'Track and Field']
+Save the instance to a constant variable named alSmith.
+
+18.
+Get the value saved to the sportsTeams property in alSmith.
+
+19.
+Nice work! If you’ve made it this far, you have a strong understanding of class syntax and inheritance.
+
+If you would like to continue working on this project, we have listed some avenues to build on your progress.
+
+Create a middle school class
+Add more properties to each class (averageTestScores, schoolOverview, etc.)
+Create a class called SchoolCatalog that holds a collection of schools. Create an instance of SchoolCatalog for primary, middle, and high schools.
