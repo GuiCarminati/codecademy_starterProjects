@@ -1,6 +1,9 @@
-// TODO: Add your import statements here.
-
-// TODO: Get the companies and roles using the salaryData module.
+import sd from './modules/salaryData.js'
+import wa from './modules/workAroundModule.js'
+import utils from "./modules/utilities.js"
+// Get the companies and roles using the salaryData module.
+const companies = sd.getCompanies();
+const roles = sd.getRoles();
 
 // Create input buttons for every company and role represented in the data.
 renderInputButtons(companies, 'company');
@@ -50,11 +53,11 @@ function updateResults(){
   // If either the company or role is unselected, return.
   if (!company || !role) { return; }
 
-  // TODO: Use the workAroundModule functions to calculate the needed data.
-  const averageSalaryByRole = 0;
-  const averageSalaryByCompany = 0;
-  const salary = 0;
-  const industryAverageSalary = 0;
+  // Use the workAroundModule functions to calculate the needed data.
+  const averageSalaryByRole = utils.formatNumber(wa.getAverageSalaryByRole(role));
+  const averageSalaryByCompany = utils.formatNumber(wa.getAverageSalaryByCompany(company));
+  const salary = utils.formatNumber(wa.getSalaryAtCompany(role,company));
+  const industryAverageSalary = utils.formatNumber(wa.getIndustryAverageSalary(role));
 
   // Render them to the screen.
   document.getElementById('salarySelected').innerText = `The salary for ${role}s at ${company} is \$${salary}`;
