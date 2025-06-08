@@ -1,8 +1,8 @@
 // Populate dropdown menu with all the available genres
 const populateGenreDropdown = (genres) => {
     const select = document.getElementById('genres')
-
-    for (const genre of genres) {
+    // console.log(genres);
+    for (const genre of genres) {    
         let option = document.createElement("option");
         option.value = genre.id;
         option.text = genre.name;
@@ -100,4 +100,3 @@ const displayMovie = (movieInfo) => {
     dislikeBtn.onclick = dislikeMovie;
 };
 
-modolue.export = {populateGenreDropdown};
