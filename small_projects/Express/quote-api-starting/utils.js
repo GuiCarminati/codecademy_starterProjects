@@ -20,8 +20,28 @@ const addNewQuote = (newQuote,newAuthor,quotesArr) => {
   return quoteObj;
 };
 
+const getElementById = (id,quotesArr) => {
+  return quotesArr.find(el => el.id===id);
+};
+
+const getElementIndexById = (id,quotesArr) => {
+  return quotesArr.find(el => el.id===id);
+};
+
+const updateElementInArray = (newValue,index,arr) => {
+  arr[index] = newValue;
+};
+
+const deleteElementInArray = (index,arr) => {
+  arr.splice(index,1);
+}
+
 module.exports = {
   getRandomElement,
   getQuotesByAuthor,
-  addNewQuote
+  addNewQuote,
+  getElementById,
+  getElementIndexById,
+  updateElementInArray,
+  deleteElementInArray
 };

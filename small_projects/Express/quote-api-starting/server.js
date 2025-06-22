@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const { quotes } = require('./data');
-const { getRandomElement, getQuotesByAuthor, addNewQuote } = require('./utils');
+const { getRandomElement, getQuotesByAuthor, addNewQuote, getElementById, getElementIndexById, updateElementInArray, deleteElementInArray } = require('./utils');
 
 const PORT = process.env.PORT || 4001;
 
@@ -30,6 +30,30 @@ quotesRouter.post('/',(req,res,next)=>{
         res.status(201).send({ quote: newQuote });
     } else {
         res.status(400).send()
+    }
+});
+
+quotesRouter.put('/:id',(req,res,next)=>{
+    const quoteIndex = getElementIndexById(req.params.id,quotes);
+    if(quoteIndex>0){
+        const newValue = {
+            quote: res.query.quote,
+            person: res.query.person
+        }
+        updateElementInArray(newValue,quoteIndex,quotes);
+        res.status(200).send(newValue);
+    } else {
+        res.status(404).send();
+    }
+});
+
+quotesRouter.delete('/:id',(req,res,next)=>{
+    const quoteIndex = getElementById(req.params.id,quotes);
+    if(quoteIndex>0){
+        deleteElementInArray(quoteIndex,quotes);
+        res.status(204).send();
+    } else {
+        res.status(404).send();
     }
 });
 
