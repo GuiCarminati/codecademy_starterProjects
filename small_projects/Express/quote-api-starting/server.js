@@ -11,10 +11,17 @@ app.use(express.static('public'));
 const quotesRouter = express.Router();
 
 quotesRouter.get('/',(req,res,next)=>{
-    const authorQuotes = getQuotesByAuthor(req.query.person,quotes);
-    if(authorQuotes.length>0) res.status(200);
-    else res.status(404);
-    res.send(authorQuotes);
+    const author = req.query.person;
+    if(!author){
+        res.status(200).send({quotes: quotes}); // update behaviour to show all quotes when query values are missing
+    } else {
+        const authorQuotes = getQuotesByAuthor(author,quotes);
+        if(authorQuotes.length>0) {
+            res.status(200).send({ quotes: authorQuotes });
+        } else {
+            res.status(404).send('No quotes found for author: '+author);
+        }
+    }
 });
 
 quotesRouter.get('/random',(req,res,next)=>{

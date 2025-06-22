@@ -7,7 +7,7 @@ const getRandomElement = arr => {
 
 
 const getQuotesByAuthor = (author,quotesArr) => {
-  const authorQuotes = quotesArr.filter(quote => quote.author===author);
+  const authorQuotes = quotesArr.filter(quote => quote.person===author);
   return authorQuotes; // returns an empty array if no quotes are found for the author
 };
 
