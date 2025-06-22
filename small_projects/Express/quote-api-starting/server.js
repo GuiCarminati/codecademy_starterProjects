@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const { quotes } = require('./data');
-const { getRandomElement, getQuotesByAuthor, addNewQuote, getElementById, getElementIndexById, updateElementInArray, deleteElementInArray } = require('./utils');
+const { getRandomElement, getQuotesByAuthor, addNewElementToArray, getElementById, getElementIndexById, updateElementInArray, deleteElementInArray } = require('./utils');
 
 const PORT = process.env.PORT || 4001;
 
@@ -30,33 +30,49 @@ quotesRouter.get('/random',(req,res,next)=>{
 });
 
 quotesRouter.post('/',(req,res,next)=>{
-    const quoteString = req.query.quote;
-    const quotePerson = req.query.person;
-    if(quoteString && quotePerson){
-        const newQuote = addNewQuote(quoteString,quotePerson,quotes);
+    const newValue = {
+        quote: req.query.quote,
+        person: req.query.person,
+        year: req.query.year
+    };   
+    if(newValue.quote && newValue.person && newValue.year){
+        const newQuote = addNewElementToArray(newValue,quotes);        
         res.status(201).send({ quote: newQuote });
     } else {
-        res.status(400).send()
+        res.status(400).send();
     }
 });
 
 quotesRouter.put('/:id',(req,res,next)=>{
-    const quoteIndex = getElementIndexById(req.params.id,quotes);
-    if(quoteIndex>0){
+    const quoteIndex = getElementIndexById(req.params.id,quotes);      
+    if(quoteIndex>=0){
         const newValue = {
-            quote: res.query.quote,
-            person: res.query.person
+            quote: req.query.quote,
+            person: req.query.person,
+            year: req.query.year, 
+            id: req.params.id
         }
         updateElementInArray(newValue,quoteIndex,quotes);
-        res.status(200).send(newValue);
+        res.status(200).send({ quote: newValue });
+    } else {
+        res.status(404).send();
+    }
+});
+
+quotesRouter.get('/:id',(req,res,next)=>{
+    const quote = getElementById(req.params.id,quotes);   
+    // console.log(quote);
+       
+    if(quote){
+        res.status(200).send({ quote: quote });
     } else {
         res.status(404).send();
     }
 });
 
 quotesRouter.delete('/:id',(req,res,next)=>{
-    const quoteIndex = getElementById(req.params.id,quotes);
-    if(quoteIndex>0){
+    const quoteIndex = getElementIndexById(req.params.id,quotes);
+    if(quoteIndex>=0){
         deleteElementInArray(quoteIndex,quotes);
         res.status(204).send();
     } else {

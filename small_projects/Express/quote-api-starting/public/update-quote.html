@@ -12,7 +12,7 @@
   <nav id="nav-menu">
     <script src="load-nav-menu.js"></script>
   </nav>
-  <h2>Add a new Quote</h2>
+  <h2>Update Existing Quote</h2>
   <div class="inputs">
     <div>
       <input id="newQuote" value="" placeholder="New Quote">
@@ -21,15 +21,17 @@
       <input id="newAuthor" value="" placeholder="New Author">
     </div>
     <div>
+      <input id="id" value="" placeholder="id" type="number" min="1" max="999">
       <input id="newYear" value="" placeholder="New Year" type="number" min="1800" max="2025">
     </div>
   </div>
   <div>
-    <button id="create">Create Quote</button>
+    <button id="check-id">Load from ID</button>
+    <button id="update">Update Quote</button>
   </div>
-  <div id="new-quote">
+  <div id="new-updated-quote">
     
   </div>
-  <script src="add-quote.js" type="module"></script>
+  <script src="update-quote.js" type="module"></script>
 </body>
 </html>
