@@ -1,0 +1,40 @@
+const express = require('express');
+const app = express();
+
+const { quotes } = require('./data');
+const { getRandomElement, getQuotesByAuthor, addNewQuote } = require('./utils');
+
+const PORT = process.env.PORT || 4001;
+
+app.use(express.static('public'));
+
+const quotesRouter = express.Router();
+
+quotesRouter.get('/',(req,res,next)=>{
+    const authorQuotes = getQuotesByAuthor(req.query.person,quotes);
+    if(authorQuotes.length>0) res.status(200);
+    else res.status(404);
+    res.send(authorQuotes);
+});
+
+quotesRouter.get('/random',(req,res,next)=>{
+    const randomQuote = getRandomElement(quotes);
+    res.status(200).send({quote: randomQuote});
+});
+
+quotesRouter.post('/',(req,res,next)=>{
+    const quoteString = req.query.quote;
+    const quotePerson = req.query.person;
+    if(quoteString && quotePerson){
+        const newQuote = addNewQuote(quoteString,quotePerson,quotes);
+        res.status(201).send({ quote: newQuote });
+    } else {
+        res.status(400).send()
+    }
+});
+
+
+app.use('/api/quotes', quotesRouter);
+
+
+app.listen(PORT);
