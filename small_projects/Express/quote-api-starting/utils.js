@@ -1,14 +1,11 @@
-const { quotes } = require("./data");
-
 const getRandomElement = arr => {
   if (!Array.isArray(arr)) throw new Error('Expected an array');
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-
-const getQuotesByAuthor = (author,quotesArr) => {
-  const authorQuotes = quotesArr.filter(quote => quote.person===author);
-  return authorQuotes; // returns an empty array if no quotes are found for the author
+const getElementsByPerson = (person,arr) => {
+  const personElements = arr.filter(el => el.person===person);
+  return personElements; // returns an empty array if no quotes are found for the author
 };
 
 const addNewElementToArray = (newValue,arr) => {
@@ -36,7 +33,7 @@ const deleteElementInArray = (index,arr) => {
 
 module.exports = {
   getRandomElement,
-  getQuotesByAuthor,
+  getElementsByPerson,
   addNewElementToArray,
   getElementById,
   getElementIndexById,
