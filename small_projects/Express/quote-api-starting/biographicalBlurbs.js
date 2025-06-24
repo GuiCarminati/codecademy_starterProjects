@@ -8,7 +8,7 @@ const blurbsRouter = express.Router();
 blurbsRouter.get('/',(req,res,next)=>{
     const person = req.query.person;
     if(!person){
-        res.status(200).send({quotes: quotes}); // return all blurbs if no person is passed in query
+        res.status(200).send({blurbs: biographicalBlurbs}); // return all blurbs if no person is passed in query
     } else {
         const personblurbs = getElementsByPerson(person,biographicalBlurbs);
         if(personblurbs.length>0) {
@@ -32,8 +32,8 @@ blurbsRouter.post('/',(req,res,next)=>{
         occupation: req.query.occupation
     };   
     if(newValue.bio && newValue.person && newValue.year && newValue.occupation){
-        const newQuote = addNewElementToArray(newValue,biographicalBlurbs);        
-        res.status(201).send({ quote: newQuote });
+        const newBlurb = addNewElementToArray(newValue,biographicalBlurbs);        
+        res.status(201).send({ blurbs: newBlurb });
     } else {
         res.status(400).send();
     }
@@ -46,7 +46,7 @@ blurbsRouter.put('/:id',(req,res,next)=>{
             bio: req.query.bio,
             person: req.query.person,
             year: req.query.year, 
-            id: req.params.id
+            id: Number(req.params.id)
         }
         updateElementInArray(newValue,blurpIndex,biographicalBlurbs);
         res.status(200).send({ blurbs: newValue });
@@ -67,7 +67,7 @@ blurbsRouter.get('/:id',(req,res,next)=>{
 blurbsRouter.delete('/:id',(req,res,next)=>{
     const blurpIndex = getElementIndexById(req.params.id,biographicalBlurbs);
     if(blurpIndex>=0){
-        deleteElementInArray(blurpIndex,quotes);
+        deleteElementInArray(blurpIndex,biographicalBlurbs);
         res.status(204).send();
     } else {
         res.status(404).send();
