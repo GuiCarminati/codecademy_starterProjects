@@ -23,11 +23,6 @@ const apiRouter = require('./server/api');
 app.use('/api',apiRouter);
 
 
-
-const db = require('./server/db.js');
-const minions = db.getAllFromDatabase('minions');
-console.log(minions);
-
 // This conditional is here for testing purposes:
 if (!module.parent) { 
   

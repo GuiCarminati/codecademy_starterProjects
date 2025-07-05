@@ -1,71 +1,45 @@
 const express = require('express');
 const apiMinions = express.Router();
-const db = require('./db.js');
-const { createError } = require('./utils.js');
+const crud = require('./crudHandlers.js');
+const utils = require('./utils.js');
 
-const type = 'minions';
+apiMinions.use('/',utils.setType);
 
-apiMinions.get('/', (req,res,next) => {
-    const list = db.getAllFromDatabase(type);
-    res.status(200).send(list);
-});
+apiMinions.get('/', crud.getAllResources);
 
-apiMinions.param('id',(req,res,next,id)=>{
-    const found = db.getFromDatabaseById(type,id);
-    if(found){
-        req.found = found;
-        next();
-    } else {
-        next(`Resource ${type} with id ${id} not found`,404);
-    }
-});
+apiMinions.param('id', crud.processId);
 
+apiMinions.get('/:id', crud.getById);
 
-apiMinions.get('/:id',(req,res,next)=>{
-    res.status(200).send(req.found);
-});
+apiMinions.delete('/:id', crud.deleteResource);
 
+apiMinions.put('/:id',newMinionInstance, crud.updateResource);
 
-apiMinions.put('/:id',(req,res,next)=>{
-    const original = req.found;    
+apiMinions.post('/',newMinionInstance, crud.createResource);
+
+function newMinionInstance(req,res,next){
     const newValues = req.body;
-    const newInstance = {
-        id: original.id,
-        name: newValues.name || original.name,
-        title: newValues.title || original.title,
-        weaknesses: newValues.weaknesses || original.weaknesses,
-        salary: newValues.salary || original.salary
+    let newInstance;
+    if(req.method === 'PUT'){
+        const original = req.found;  
+        newInstance = {
+            id: original.id,
+            name: newValues.name || original.name,
+            title: newValues.title || original.title,
+            weaknesses: newValues.weaknesses || original.weaknesses,
+            salary: newValues.salary || original.salary
+        }
+    } else if(req.method === 'POST'){ 
+        newInstance = {
+            name: newValues.name,
+            title: newValues.title,
+            weaknesses: newValues.weaknesses,
+            salary: newValues.salary
+        }
     }
-    const updated = db.updateInstanceInDatabase(type,newInstance);
-    if(updated){
-        res.status(200).send(updated);
-    } else {
-        next(createError('Failed to update'));
-    }
-});
-
-apiMinions.delete('/:id',(req,res,next) => {
-    const id = req.found.id;
-    db.deleteFromDatabasebyId(type,id);
-    res.status(204).send(`Resource ${type} with id ${id} deleted`);
-});
-
-apiMinions.post('/',(req,res,next)=>{
-    const newValues = req.body;
-    const newInstance = {
-        name: newValues.name,
-        title: newValues.title,
-        weaknesses: newValues.weaknesses,
-        salary: newValues.salary
-    }
-    const created = db.addToDatabase(type,newInstance);
-    if(created){
-        res.status(200).send(created);
-    } else {
-        next(createError('Failed to create'));
-    }
-});
-
+    req.newInstance = newInstance;
+    next();
+}
 
 module.exports = apiMinions;
 
