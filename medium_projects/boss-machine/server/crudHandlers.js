@@ -50,9 +50,11 @@ function deleteResource(req,res,next){
     res.status(204).send(`Resource ${type} with id ${id} deleted`);
 }
 
-
-
-
+function deleteAllResourcesFromType(req,res,next){
+    const type = req.type;
+    db.deleteAllFromDatabase(type);
+    res.status(204).send(`All ${type} deleted`);
+}
 
 module.exports = {
     getAllResources,
@@ -61,4 +63,5 @@ module.exports = {
     createResource,
     updateResource,
     deleteResource,
+    deleteAllResourcesFromType
 }
