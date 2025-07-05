@@ -2,6 +2,7 @@ const express = require('express');
 const apiIdeas = express.Router();
 const crud = require('./crudHandlers.js');
 const utils = require('./utils.js');
+const validateIdea = require('./checkMillionDollarIdea.js');
 
 apiIdeas.use('/',utils.setType);
 
@@ -13,9 +14,9 @@ apiIdeas.get('/:id', crud.getById);
 
 apiIdeas.delete('/:id', crud.deleteResource);
 
-apiIdeas.put('/:id',newIdeaInstance, crud.updateResource);
+apiIdeas.put('/:id', validateIdea, newIdeaInstance, crud.updateResource);
 
-apiIdeas.post('/',newIdeaInstance, crud.createResource);
+apiIdeas.post('/', validateIdea, newIdeaInstance, crud.createResource);
 
 function newIdeaInstance(req,res,next){    
     const newValues = req.body;
@@ -36,7 +37,7 @@ function newIdeaInstance(req,res,next){
             weeklyRevenue: newValues.weeklyRevenue,
             numWeeks: newValues.numWeeks
         }
-    }
+    } 
     req.newInstance = newInstance;
     next();
 }

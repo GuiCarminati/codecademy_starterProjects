@@ -27,7 +27,7 @@ function createResource(req,res,next){
     const type = req.type;
     const created = db.addToDatabase(type,req.newInstance);
     if(created){
-        res.status(200).send(created);
+        res.status(201).send(created);
     } else {
         next(createError('Failed to create'));
     }
