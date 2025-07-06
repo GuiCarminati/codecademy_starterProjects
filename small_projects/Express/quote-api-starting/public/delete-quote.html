@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <title>Quote API</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <h1>Quote API</h1>
+  <nav id="nav-menu">
+    <script src="load-nav-menu.js"></script>
+  </nav>
+  <h2>Delete Existing Quote</h2>
+  <div class="inputs">
+    <div>
+      <input id="id" value="" placeholder="id" type="number" min="1" max="999">
+    </div>
+  </div>
+  <div>
+    <button id="check-id">Check ID</button>
+    <button id="delete">Delete Quote</button>
+  </div>
+  <div id="delete-message">
+    
+  </div>
+  <script src="delete-quote.js" type="module"></script>
+</body>
+</html>

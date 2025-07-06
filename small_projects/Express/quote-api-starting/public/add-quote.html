@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <title>Quote API</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <h1>Quote API</h1>
+  <nav id="nav-menu">
+    <script src="load-nav-menu.js"></script>
+  </nav>
+  <h2>Add a new Quote</h2>
+  <div class="inputs">
+    <div>
+      <input id="newQuote" value="" placeholder="New Quote">
+    </div>
+    <div>
+      <input id="newAuthor" value="" placeholder="New Author">
+    </div>
+    <div>
+      <input id="newYear" value="" placeholder="New Year" type="number" min="1800" max="2025">
+    </div>
+  </div>
+  <div>
+    <button id="create">Create Quote</button>
+  </div>
+  <div id="new-quote">
+    
+  </div>
+  <script src="add-quote.js" type="module"></script>
+</body>
+</html>
